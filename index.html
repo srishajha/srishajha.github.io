@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Srisha Jha — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e0e;
+    --bg2: #161616;
+    --bg3: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0ede8;
+    --muted: #7a776f;
+    --accent: #d4a96a;
+    --accent2: #c2855a;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 2.5rem;
+    backdrop-filter: blur(16px);
+    background: rgba(14,14,14,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 8rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,169,106,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; width: 100%; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(212,169,106,0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-bio {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--muted);
+    max-width: 520px;
+    margin-top: 1.6rem;
+    line-height: 1.7;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-top: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--accent); color: #0e0e0e; }
+  .btn-primary:hover { background: #e0ba7a; transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--muted); font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 2.5rem; }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text { font-size: 1.05rem; color: var(--muted); line-height: 1.8; }
+  .about-text p + p { margin-top: 1rem; }
+  .about-text strong { color: var(--text); font-weight: 500; }
+  .about-stack h4 {
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1rem; margin-top: 2rem;
+  }
+  .about-stack h4:first-child { margin-top: 0; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+  }
+
+  /* ── EXPLORING ── */
+  #exploring { background: var(--bg); }
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .explore-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem 1.6rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .explore-card:hover { border-color: rgba(212,169,106,0.25); transform: translateY(-2px); }
+  .explore-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .explore-card h3 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .explore-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .explore-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    background: rgba(212,169,106,0.08);
+    border: 1px solid rgba(212,169,106,0.18);
+    color: var(--accent);
+  }
+
+  /* ── SOFT SKILLS ── */
+  #soft-skills { background: var(--bg2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .skill-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .skill-card:hover { border-color: rgba(212,169,106,0.25); }
+  .skill-card:hover::after { opacity: 1; }
+  .skill-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: rgba(212,169,106,0.2);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .skill-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .skill-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .project-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.2rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(212,169,106,0.04), transparent 40%);
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  .project-card:hover { border-color: rgba(212,169,106,0.3); transform: translateY(-2px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  .project-name { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; }
+  .project-arrow { color: var(--muted); font-size: 1.2rem; transition: transform 0.2s, color 0.2s; }
+  .project-card:hover .project-arrow { transform: translate(3px,-3px); color: var(--accent); }
+  .project-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .project-tag {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .project-featured {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); background: rgba(212,169,106,0.1);
+    border: 1px solid rgba(212,169,106,0.2);
+    border-radius: 100px; padding: 0.2rem 0.65rem;
+    margin-bottom: 0.5rem; display: inline-block;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); }
+  .contact-inner { max-width: 680px; margin: 0 auto; }
+  .contact-intro {
+    color: var(--muted); font-size: 1rem; line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .open-to {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+  .open-pill {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    border: 1px solid rgba(212,169,106,0.3);
+    color: var(--accent);
+    background: rgba(212,169,106,0.06);
+  }
+  .contact-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.88rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-item:hover { border-color: rgba(212,169,106,0.3); transform: translateY(-1px); color: var(--accent); }
+  .contact-item-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .contact-item-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: block; margin-bottom: 0.1rem; }
+  .contact-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .explore-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#">Srisha Jha</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#exploring">Exploring</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">CS Student · ML Enthusiast · Open to Internships</div>
+    <h1 class="hero-name">Srisha<br/><em>Jha</em></h1>
+    <p class="hero-bio">
+      First-year CS student building end-to-end machine learning projects.
+      I care about turning messy real-world data into tools that actually work.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/srishajha" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/srisha-jha-391251377/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>first-year Computer Science student</strong> who's fallen headfirst into machine learning.
+          I like the full journey — from wrangling raw data to shipping something you can actually use in a browser.
+        </p>
+        <p>
+          My first project was a <strong>Loan Eligibility Predictor</strong>: I handled the EDA, cleaned edge cases
+          (including a fun <code>3+</code> value in a Dependents column), trained a RandomForestClassifier,
+          and deployed it live with Streamlit.
+        </p>
+        <p>
+          Currently deepening my fundamentals — exploring DSA, React, and JavaScript — while always looking for the next thing to build.
+        </p>
+      </div>
+      <div class="about-stack reveal reveal-delay-1">
+        <h4>Languages</h4>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">C</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">SQL</span>
+        </div>
+        <h4>ML & Data</h4>
+        <div class="tag-list">
+          <span class="tag">scikit-learn</span>
+          <span class="tag">pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Matplotlib</span>
+        </div>
+        <h4>Tools</h4>
+        <div class="tag-list">
+          <span class="tag">Streamlit</span>
+          <span class="tag">Jupyter</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORING -->
+<section id="exploring">
+  <div class="container">
+    <div class="section-label">Exploring</div>
+    <h2 class="section-title reveal">Currently <em>learning</em></h2>
+    <div class="explore-grid">
+
+      <div class="explore-card reveal">
+        <span class="explore-icon">⚛️</span>
+        <h3>React</h3>
+        <p>Learning component-based UI development, hooks, and state management to build interactive front-ends beyond static HTML.</p>
+        <span class="explore-badge">In progress</span>
+      </div>
+
+      <div class="explore-card reveal reveal-delay-1">
+        <span class="explore-icon">𝗝𝗦</span>
+        <h3>JavaScript</h3>
+        <p>Building on HTML/CSS foundations — diving into DOM manipulation, async programming, and ES6+ features.</p>
+        <span class="explore-badge">In progress</span>
+      </div>
+
+      <div class="explore-card reveal reveal-delay-2">
+        <span class="explore-icon">🌲</span>
+        <h3>DSA</h3>
+        <p>Practising data structures and algorithms — arrays, linked lists, trees, and problem-solving patterns for stronger CS fundamentals.</p>
+        <span class="explore-badge">In progress</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOFT SKILLS -->
+<section id="soft-skills">
+  <div class="container">
+    <div class="section-label">Soft Skills</div>
+    <h2 class="section-title reveal">Beyond <em>the code</em></h2>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-num">01</div>
+        <h3>Communication</h3>
+        <p>Able to explain technical ideas clearly — whether writing docs, presenting results, or collaborating with teammates.</p>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-num">02</div>
+        <h3>Marketing</h3>
+        <p>Understanding how to frame and present work to an audience — from writing READMEs to showcasing projects effectively.</p>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-num">03</div>
+        <h3>Data Handling</h3>
+        <p>Comfortable working with messy, real-world datasets — cleaning, transforming, and drawing meaningful insights from raw data.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title reveal">Things I've <em>built</em></h2>
+    <div class="project-list">
+
+      <a class="project-card reveal"
+         href="https://srishajha-loan-eligibility-predictor.streamlit.app/"
+         target="_blank"
+         onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <div><span class="project-featured">Live · Deployed</span></div>
+        <div class="project-head">
+          <h3 class="project-name">Loan Eligibility<br/>Predictor</h3>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          End-to-end ML project: exploratory data analysis, data cleaning, training a Random Forest classifier,
+          and deploying an interactive web app. Handles real-world messiness like non-standard categorical values
+          and feature alignment between training and inference.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">scikit-learn</span>
+          <span class="project-tag">pandas</span>
+          <span class="project-tag">Streamlit</span>
+          <span class="project-tag">pickle</span>
+          <span class="project-tag">RandomForest</span>
+        </div>
+      </a>
+
+      <div class="project-card reveal reveal-delay-1"
+           style="opacity:0.45; cursor:default;"
+           onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <div class="project-head">
+          <h3 class="project-name" style="color:var(--muted)">Next project<br/>in progress…</h3>
+          <span class="project-arrow" style="color:var(--border)">→</span>
+        </div>
+        <p class="project-desc">Something new is being built. Check back soon.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title reveal" style="margin-bottom:1.2rem">Let's <em>connect</em></h2>
+    <div class="contact-inner">
+      <p class="contact-intro reveal reveal-delay-1">
+        I'm a first-year CS student open to <strong style="color:var(--text)">internship opportunities, collaborative projects, and learning together</strong>.
+        If you're working on something interesting or want to connect, reach out — I'd love to hear from you.
+      </p>
+
+      <div class="open-to reveal reveal-delay-1">
+        <span class="open-pill">✦ Open to internships</span>
+        <span class="open-pill">✦ Open to learning</span>
+        <span class="open-pill">✦ Open to collaboration</span>
+      </div>
+
+      <div class="contact-details reveal reveal-delay-2">
+        <a class="contact-item" href="mailto:srishajha@gmail.com">
+          <span class="contact-item-icon">✉</span>
+          <span>
+            <span class="contact-item-label">Email</span>
+            srishajha@gmail.com
+          </span>
+        </a>
+        <a class="contact-item" href="tel:+919650012681">
+          <span class="contact-item-icon">☎</span>
+          <span>
+            <span class="contact-item-label">Phone</span>
+            +91 96500 12681
+          </span>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/srisha-jha-391251377/" target="_blank">
+          <span class="contact-item-icon">in</span>
+          <span>
+            <span class="contact-item-label">LinkedIn</span>
+            srisha-jha-391251377
+          </span>
+        </a>
+      </div>
+
+      <div class="contact-cta reveal reveal-delay-3">
+        <a href="https://github.com/srishajha" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <a href="mailto:srishajha@gmail.com" class="btn btn-primary">Say Hello</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Srisha Jha</span>
+  <span>Built with HTML · Deployed on GitHub Pages</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
